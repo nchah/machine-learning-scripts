@@ -8,14 +8,14 @@ Machine Learning and Natural Language Processing scripts.
 $ ls
 .
 nltk/           # Natural Language Toolkit
-tensorflow/     # Tensorflow 
+tensorflow/     # TensorFlow 
 
 ```
 
 
-## Tensorflow
+## TensorFlow
 
-Installed Tensorflow locally using the Anaconda, Python 2.7 instructions.
+Installed TensorFlow locally using the Anaconda, Python 2.7 instructions.
 
 ```
 # Creating the environment through a conda command
@@ -25,7 +25,7 @@ $ conda create -n tensorflow python=2.7
 $ source activate tensorflow
 (tensorflow)$ # The new prompt for the conda environment
 
-# Installing tensorflow.
+# Installing TensorFlow.
 $ conda install -c conda-forge tensorflow
 
 # Deactivate the environment to return to the usual prompt.
