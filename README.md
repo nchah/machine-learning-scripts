@@ -13,6 +13,15 @@ tensorflow/     # TensorFlow
 ```
 
 
+## NLTK
+
+
+```
+$ python
+>>> import nltk
+```
+
+
 ## TensorFlow
 
 Installed TensorFlow locally using the Anaconda, Python 2.7 instructions.
