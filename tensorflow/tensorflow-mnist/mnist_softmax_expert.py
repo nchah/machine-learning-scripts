@@ -49,6 +49,9 @@ init = tf.initialize_all_variables()
 
 # Launching the completed model in a Session
 sess = tf.Session()
+
+# Possible to set additional configurations
+# sess = tf.Session(config=tf.ConfigProto(intra_op_parallelism_threads=1, inter_op_parallelism_threads=1))
 sess.run(init)
 
 print("Training the model 1000 times...")
@@ -142,6 +145,7 @@ b_fc2 = bias_variable([10])
 y_conv = tf.matmul(h_fc1_drop, W_fc2) + b_fc2
 
 print("Training the model...")
+
 
 # This step does 20,000 training iterations and may take up to 30 mins depending on local setup
 cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(y_conv, y_))
