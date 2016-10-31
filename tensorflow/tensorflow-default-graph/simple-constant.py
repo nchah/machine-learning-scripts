@@ -13,15 +13,14 @@ graph.get_operations()
 # This sets a Constant of 1.0 as a node/operation in the graph
 input_value = tf.constant(1.0)
 
-operations = graph.get_operations()
-
 # Showing the protocol buffer for that first node
+operations = graph.get_operations()
 operations[0].node_def
 
 
 # 2. Sessions - computing in Sessions
 
-# Start the sesison and print out the input_value Constant
+# Start the session and print out the input_value Constant
 sess = tf.Session()
 sess.run(input_value)
 

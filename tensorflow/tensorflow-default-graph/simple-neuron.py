@@ -13,15 +13,25 @@ graph.get_operations()
 # This sets a Constant of 1.0 as a node/operation in the graph
 input_value = tf.constant(1.0)
 
-operations = graph.get_operations()
-
 # Showing the protocol buffer for that first node
+operations = graph.get_operations()
 operations[0].node_def
+
+# Setting another variable
+weight = tf.Variable(0.8)
+
+# There were 4 operations added from that variable
+for op in graph.get_operations():
+    print(op.name)
+
+# Following this simple calculation
+output_value = weight * input_value
 
 
 # 2. Sessions - computing in Sessions
 
-# Start the sesison and print out the input_value Constant
+# Initialize all variables and start the session
+init = tf.initialize_all_variables()
 sess = tf.Session()
-sess.run(input_value)
+sess.run(output_value)
 
