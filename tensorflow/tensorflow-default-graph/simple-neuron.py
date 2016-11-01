@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+"""
+Source: https://www.oreilly.com/learning/hello-tensorflow
+"""
 
 import tensorflow as tf
 
