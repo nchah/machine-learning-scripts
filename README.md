@@ -45,19 +45,20 @@ $ # Back to normal
 
 ## Sources
 
-
-
 ### NLTK
 
+Official Sources
 - [NLTK](http://www.nltk.org/)
 - [NLTK How-To](http://www.nltk.org/howto/)
 - [NLTK API](http://www.nltk.org/api/nltk.html)
 
+Supplemental
 - Bird S., E. Klein, and E. Loper. 2009. Natural Language Processing with Python. O'Reilly Media. Retrieved from http://www.nltk.org/book_1ed/
 
 
 ### TensorFlow
 
+Official Sources
 - [TensorFlow](https://www.tensorflow.org/)
 - [TensorFlow Get Started](https://www.tensorflow.org/versions/master/get_started/index.html)
 - [TensorFlow Tutorials](https://www.tensorflow.org/versions/master/tutorials/index.html)
@@ -65,5 +66,6 @@ $ # Back to normal
 - [TensorFlow API](https://www.tensorflow.org/versions/r0.11/api_docs/index.html)
 - [TensorFlow Resources](https://www.tensorflow.org/versions/master/resources/index.html)
 
+Supplemental
 - Schumacher, A. (2016, June 20). Hello, TensorFlow! Retrieved from https://www.oreilly.com/learning/hello-tensorflow
 
