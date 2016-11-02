@@ -49,6 +49,11 @@ $ # Back to normal
 
 ### NLTK
 
+- [NLTK](http://www.nltk.org/)
+- [NLTK How-To](http://www.nltk.org/howto/)
+- [NLTK API](http://www.nltk.org/api/nltk.html)
+
+- Bird S., E. Klein, and E. Loper. 2009. Natural Language Processing with Python. O'Reilly Media. Retrieved from http://www.nltk.org/book_1ed/
 
 
 ### TensorFlow
