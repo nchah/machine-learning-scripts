@@ -7,8 +7,9 @@ Machine Learning and Natural Language Processing scripts.
 ```
 $ ls
 .
-nltk/           # Natural Language Toolkit
-tensorflow/     # TensorFlow 
+nltk/           # Natural Language Toolkit - Natural Language Processing
+scikit-learn/   # Scikit-learn - Machine Learning
+tensorflow/     # TensorFlow - Deep Learning
 
 ```
 
@@ -20,6 +21,11 @@ tensorflow/     # TensorFlow
 $ python
 >>> import nltk
 ```
+
+## scikit-learn
+
+
+
 
 
 ## TensorFlow
