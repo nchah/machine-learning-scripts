@@ -9,14 +9,17 @@ $ source activate tensorflow
 
 # The sample code as is
 (tensorflow) $ python mnist_softmax.py
+
 Extracting /tmp/tensorflow/mnist/input_data/train-images-idx3-ubyte.gz
 Extracting /tmp/tensorflow/mnist/input_data/train-labels-idx1-ubyte.gz
 Extracting /tmp/tensorflow/mnist/input_data/t10k-images-idx3-ubyte.gz
 Extracting /tmp/tensorflow/mnist/input_data/t10k-labels-idx1-ubyte.gz
 0.918
 
+
 # The same code but written while going through the guide
 (tensorflow) $ python mnist_softmax_beginner.py
+
 Extracting MNIST_data/train-images-idx3-ubyte.gz
 Extracting MNIST_data/train-labels-idx1-ubyte.gz
 Extracting MNIST_data/t10k-images-idx3-ubyte.gz
@@ -28,8 +31,10 @@ Training the model 1000 times...
 Evaluating the model...
 Accuracy: 0.9154
 
+
 # The Expert tutorial where a multilayer convolutional network is added
 (tensorflow) $ python mnist_softmax_expert.py
+
 Extracting MNIST_data/train-images-idx3-ubyte.gz
 Extracting MNIST_data/train-labels-idx1-ubyte.gz
 Extracting MNIST_data/t10k-images-idx3-ubyte.gz
