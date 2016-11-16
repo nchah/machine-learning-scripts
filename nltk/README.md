@@ -9,7 +9,7 @@ $ python
 import nltk
 ```
 
-It's recommended that some additional datasets and models are downloaded.
+NLTK comes with some additional datasets and models and can be downloaded as follows.
 
 ```
 nltk.download()  # This brings up a separate GUI to manage the downloads
@@ -20,10 +20,10 @@ nltk.download()  # This brings up a separate GUI to manage the downloads
 ### Loading Text
 
 Text data can come in many forms.
-Some common examples are text files that can be read with the most basic text editors (.txt), text data encoded in JSON format (.json), or text in tabular data (.csv, .tsv).
-Regardless of the source data type, the textual data needs to be loaded into the Python environment with the appropriate commands.
+Some common examples are plaintext files that can be edited with most basic text editors (.txt), text data encoded in JSON, XML, HTML format (.json, .xml, .html), or text in tabular data (.csv, .tsv).
+Regardless of the source data type, the textual data needs to be loaded into the Python environment with the appropriate commands first.
 
-For the most, in Python 2.x we can use the open() or codecs.open() in the case of opening with a unicode encoding.
+For the most, in Python 2.x we can use the open(), or codecs.open() in the case of opening with a unicode encoding.
 
 ```
 import codecs
@@ -36,9 +36,10 @@ with codecs.open('path/to/file', encoding='utf8') as f:
 
 Once a corpus of texts has been loaded into Python, tokenization is often a next step.
 
-
 ```
 from nltk import word_tokenize
+
+text = ""
 
 ```
 
