@@ -77,12 +77,12 @@ print(sentence_tokens)
 There is no requirement to use the list data structure, The same word_tokenize() and sent_tokenize() functions can be applied to the appropriate text data.
 
 
-### "Pre-processing" 
+### Pre-processing Stages
 
 Or, what to do with stop words, punctuation, and inconsistent letter case.
 
 
-### Lower Case
+#### Lower Case
 
 Use Python's built-in function to turn text into an all lower-case version if this is needed for further analysis.
 
@@ -97,7 +97,7 @@ print(sentence_tokens)
 
 Converting all text into lower case may be a necessary step when checking for matches against a lexicon, finding substrings where the text can have inconsistent spelling, and other use cases.
 
-### Stop Words
+#### Stop Words
 
 How to handle stopwords is another integral step in Natural Language Processing.
 NLTK comes with its own stopwords list and can be accessed as follows.
@@ -118,21 +118,96 @@ You could also use a custom stopwords list or add further items to the existing 
 
 ```
 more_stopwords = ['this', 'that', 'stopword', 'etc...']
-# Add
+# Add another list
 stopwords += more_stopwords
+
+# Append
+stopwords.append('another word')
 
 # Remove
 stopwords.remove('etc...')
 ```
 
+#### Punctuation
 
+Punctuation can be handled in many ways as well. One method is to use the built-in String module.
+
+```
+import string
+punctuation = set(string.punctuation)  # OR list(string.punctuation)
+
+print(punctuation)
+# -> set(['!', '#', '"', '%', '$', "'", '&', ')', '(', '+', '*', '-', ',', '/', '.', ';', ':', '=', '<', '?', '>', '@', '[', ']', '\\', '_', '^', '`', '{', '}', '|', '~'])
+```
 
 ## Applications
 
-### Word Counts and Distributions
 
+### Type-Token Ratio (TTR)
 
+You can get the Types in a text by applying the set() function on a text.
+The Types are the set of *different* words in a text.
 
+Higher values in the TTR usually indicate greater word variation (lexical complexity), and as a ratio the range of values range from [0, 1].
+
+```
+sentence = 'hello hello world world'
+sentence = word_tokenize(sentence)
+types = set(sentence)
+
+print types
+# -> set(['world', 'hello'])
+```
+
+Computing the Type-Token Ratio then can be done as follows with some simple arithmetic implemented in Python.
+The proper division function must be used depending on the Python version.
+
+```
+text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+text = word_tokenize(text)
+types = set(text)
+
+from __future__ import division  # if using Python 2.x
+text_TTR = len(types)/len(text)
+
+print(text_TTR)
+# -> 0.8571428571428571
+```
+
+Variations on the TTR may use lemmas or word families to be more precise in how the Types are calculated.
+The TTR calculation could also be done for every chunk of X words in a corpus and averaged over those values.
+
+### Frequency Distributions
+
+Applying a Frequency Distribution on a text will indicate the most frequent words along with their frequencies.
+
+```
+import nltk
+
+text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+text = word_tokenize(text)
+text = [word for word in text if word not in punctuation]
+
+text_FD = nltk.FreqDist(text)
+
+# Get the Top 10 or get all if no param set
+text_FD.most_common(10)
+# -> [('in', 3), ('dolore', 2), ('ut', 2), ('dolor', 2), ('ad', 1), ('irure', 1), ('ea', 1), ('officia', 1), ('sunt', 1), ('elit', 1)]
+
+# Or get the frequency of a word in the list of tuples
+text_FD['Lorem']
+# -> 1
+```
+
+There's a further step to use the matplotlib libraries to create a visualization.
+
+```
+# If running on OS X and the command below doesn't bring up a GUI
+import matplotlib
+matplotlib.use('TkAgg')
+
+text_FD.plot(20, cumulative=False)
+```
 
 
 

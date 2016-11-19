@@ -1,4 +1,4 @@
-# ml-scripts
+# ML-scripts
 
 Machine Learning and Natural Language Processing scripts.
 
@@ -16,6 +16,10 @@ tensorflow/     # TensorFlow - Deep Learning
 
 ## NLTK
 
+Links: [nltk.org](http://www.nltk.org/), [Wikipedia](https://en.wikipedia.org/wiki/Natural_Language_Toolkit<Paste>), [GitHub](https://github.com/nltk/nltk)
+
+NLTK is a widely used Python library specifically for natural language processing.
+It supports text tokenization, n-grams/collocations, part-of-speech (POS) tagging, and named entity recognition (NER).
 
 ```
 $ python
@@ -24,14 +28,23 @@ $ python
 
 ## scikit-learn
 
+Links: [scikit-learn.org](http://scikit-learn.org/stable/), [Wikipedia](https://en.wikipedia.org/wiki/Scikit-learn), [GitHub](https://github.com/scikit-learn/scikit-learn)
 
+Scikit-learn is a machine learning Python library.
+It supports classification, clustering, support vector machines, k-means, and other machine learning applications.
 
-
+```
+$ python
+>>> import sklearn
+```
 
 ## TensorFlow
 
-Installed TensorFlow locally using the Anaconda, Python 2.7 instructions.
+Links: [tensorflow.org](https://www.tensorflow.org/), [Wikipedia](https://en.wikipedia.org/wiki/TensorFlow), [GitHub](https://github.com/tensorflow/tensorflow)
 
+TensorFlow is a machine learning and deep learning library by Google with a Python API.
+
+Installing TensorFlow locally using the Anaconda, Python 2.7 instructions.
 ```
 # Creating the environment through a conda command
 $ conda create -n tensorflow python=2.7
@@ -58,8 +71,16 @@ Official Sources
 - [NLTK How-To](http://www.nltk.org/howto/)
 - [NLTK API](http://www.nltk.org/api/nltk.html)
 
-Supplemental
+Additional Sources
 - Bird S., E. Klein, and E. Loper. 2009. Natural Language Processing with Python. O'Reilly Media. Retrieved from http://www.nltk.org/book_1ed/
+
+
+### Scikit-learn
+
+Official Sources
+
+
+Additional Sources
 
 
 ### TensorFlow
@@ -72,6 +93,6 @@ Official Sources
 - [TensorFlow API](https://www.tensorflow.org/versions/r0.11/api_docs/index.html)
 - [TensorFlow Resources](https://www.tensorflow.org/versions/master/resources/index.html)
 
-Supplemental
+Additional Sources
 - Schumacher, A. (2016, June 20). Hello, TensorFlow! Retrieved from https://www.oreilly.com/learning/hello-tensorflow
 
