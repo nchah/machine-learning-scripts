@@ -39,17 +39,72 @@ Once a corpus of texts has been loaded into Python, tokenization is often a next
 ```
 from nltk import word_tokenize
 
-text = ""
+sentence = "The quick brown fox jumps over the lazy dog."
+sentence_tokens = word_tokenize(sentence)
+
+print(sentence_tokens)
+# -> ['The', 'quick', 'brown', 'fox', 'jumps', 'over', 'the', 'lazy', 'dog', '.'] 
 
 ```
+This turns the text (type: string) into a list where every element is what the tokenizer detects to be a standalone word.
 
 
 ### Sentence Segmentation
+
+Similar to the tokenization step, sentence segmentation is applied to a body of text to break it up into a list of sentences.
+
+```
+from nltk import sent_tokenize
+
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+text_sentences = sent_tokenize(text)
+
+print(text_sentences)
+# -> ['Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'] 
+```
+
+Once a corpus of text is divided into individual sentences, you can apply word tokenization to obtain each individual element.
+Since this is Python, use list comprehensions for more idiomatic programming.
+This creates a list of lists.
+
+```
+sentence_tokens = [word_tokenize(sent) for sent in sent_tokenize(text)] 
+
+print(sentence_tokens)
+# -> [['Lorem', 'ipsum', 'dolor', 'sit', 'amet', ',', 'consectetur', 'adipiscing', 'elit', ',', 'sed', 'do', 'eiusmod', 'tempor', 'incididunt', 'ut', 'labore', 'et', 'dolore', 'magna', 'aliqua', '.'], ['Ut', 'enim', 'ad', 'minim', 'veniam', ',', 'quis', 'nostrud', 'exercitation', 'ullamco', 'laboris', 'nisi', 'ut', 'aliquip', 'ex', 'ea', 'commodo', 'consequat', '.'], ['Duis', 'aute', 'irure', 'dolor', 'in', 'reprehenderit', 'in', 'voluptate', 'velit', 'esse', 'cillum', 'dolore', 'eu', 'fugiat', 'nulla', 'pariatur', '.'], ['Excepteur', 'sint', 'occaecat', 'cupidatat', 'non', 'proident', ',', 'sunt', 'in', 'culpa', 'qui', 'officia', 'deserunt', 'mollit', 'anim', 'id', 'est', 'laborum', '.']]
+```
+
+There is no requirement to use the list data structure, The same word_tokenize() and sent_tokenize() functions can be applied to the appropriate text data.
 
 
 ### "Pre-processing" 
 
 Or, what to do with stop words, punctuation, and inconsistent letter case.
+
+
+### Lower Case
+
+Use Python's built-in function to turn text into an all lower-case version if this is needed for further analysis.
+
+```
+sentence = "The quick brown fox jumps over the lazy dog."
+sentence_tokens = word_tokenize(sentence)
+
+sentence_tokens = [word.lower() for word in sentence_tokens]
+print(sentence_tokens)
+# -> ['the', 'quick', 'brown', 'fox', 'jumps', 'over', 'the', 'lazy', 'dog', '.']
+```
+
+Converting all text into lower case may be a necessary step when checking for matches against a lexicon, finding substrings where the text can have inconsistent spelling, and other use cases.
+
+### Stop Words
+
+How to handle stopwords is another integral step in Natural Language Processing.
+NLTK comes with its own stopwords list and can be accessed as follows.
+
+```
+
+```
 
 
 
