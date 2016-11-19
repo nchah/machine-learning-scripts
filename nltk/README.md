@@ -142,7 +142,6 @@ print(punctuation)
 
 ## Applications
 
-
 ### Type-Token Ratio (TTR)
 
 You can get the Types in a text by applying the set() function on a text.
@@ -209,8 +208,26 @@ matplotlib.use('TkAgg')
 text_FD.plot(20, cumulative=False)
 ```
 
+### N-grams and Collocations
 
 
+
+
+
+
+### Part-of-speech (POS) Tagging
+
+
+
+### Stemming and Lemmas
+
+
+
+### Named Entity Recognition (NER)
+
+
+
+### Lexicons
 
 
 
