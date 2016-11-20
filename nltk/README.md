@@ -210,9 +210,61 @@ text_FD.plot(20, cumulative=False)
 
 ### N-grams and Collocations
 
+Collocations of 2 words by default can be accessed with a simple method under the NLTK Text class.
 
+```
+from nltk import word_tokenize
+import string
+punctuation = set(string.punctuation)
 
+text = "The quick brown fox jumps over the lazy dog. The brown fox jumps over the dog. The quick brown fox jumps over the lazy fox. The quick brown fox jumps over the quick dog."
+text = word_tokenize(text)
 
+text = nltk.Text(text)
+print text.collocations()
+# -> brown fox; fox jumps; quick brown
+```
+
+For deeper applications using collocations, there are additional functions.
+
+This is another approach for bigrams.
+```
+from nltk.collocations import *
+
+# For obtaining stats on bigrams
+bigram_stats = nltk.collocations.BigramAssocMeasures()
+
+# Initializing a bigram finder
+bigram_finder = BigramCollocationFinder.from_words(text)
+
+bigram_finder.nbest(bigram_stats.chi_sq, 5)
+# -> [('jumps', 'over'), ('over', 'the'), ('brown', 'fox'), ('fox', 'jumps'), ('dog', '.')]
+
+# Getting the score for a specific bigram
+bigram_finder.score_ngram(bigram_stats.chi_sq, 'jumps', 'over')
+# -> 38.0
+```
+
+A similar approach for trigrams.
+
+```
+# For obtaining stats on trigrams
+trigram_stats = nltk.collocations.TrigramAssocMeasures()
+
+# Initializing a trigram finder
+trigram_finder = TrigramCollocationFinder.from_words(text, window_size=3)
+
+# Get trigrams, top 5 ranked according to different rankings
+# Chi-square, likelihood ratio, PMI score, etc...
+trigram_finder.nbest(trigram_stats.chi_sq, 5)
+# -> [('jumps', 'over', 'the'), ('brown', 'fox', 'jumps'), ('fox', 'jumps', 'over'), ('The', 'quick', 'brown'), ('over', 'the', 'lazy')]
+
+trigram_finder.nbest(trigram_stats.likelihood_ratio, 5)
+trigram_finder.nbest(trigram_stats.pmi, 5)
+
+# Applying a filter to get collocations occurring at least X times
+trigram_finder.apply_freq_filter(5)
+```
 
 
 ### Part-of-speech (POS) Tagging
