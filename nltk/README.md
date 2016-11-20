@@ -225,9 +225,24 @@ print text.collocations()
 # -> brown fox; fox jumps; quick brown
 ```
 
+Or by using the nrgams() method.
+```
+import nltk
+
+ngrams = nltk.ngrams(text, 4)  # where # is #-gram
+
+for ng in ngrams:
+    print ng
+# -> ('The', 'quick', 'brown', 'fox')
+('quick', 'brown', 'fox', 'jumps')
+('brown', 'fox', 'jumps', 'over')
+('fox', 'jumps', 'over', 'the')
+...
+```
+
 For deeper applications using collocations, there are additional functions.
 
-This is another approach for bigrams.
+This is another approach for bigrams that also includes scores for each ngram according to a measure.
 ```
 from nltk.collocations import *
 
@@ -269,6 +284,25 @@ trigram_finder.apply_freq_filter(5)
 
 ### Part-of-speech (POS) Tagging
 
+The NLTK POS tagger first needs to be downloaded (maxent_treebank_pos_tagger).
+
+```
+from nltk.tag import pos_tag
+
+sentence = "The quick brown fox jumps over the lazy dog."
+sentence = word_tokenize(sentence)
+
+pos = nltk.pos_tag(sentence)
+print pos
+# -> [('The', 'DT'), ('quick', 'NN'), ('brown', 'NN'), ('fox', 'NN'), ('jumps', 'NNS'), ('over', 'IN'), ('the', 'DT'), ('lazy', 'NN'), ('dog', 'NN'), ('.', '.')]
+```
+
+The output is a list of tuples, where each tuple is the word and the POS.
+Printing this out in a new string format using this data structure.
+```
+print " ".join([word + '_(' + tag + ')' for word, tag in pos])
+# -> 'The_(DT) quick_(NN) brown_(NN) fox_(NN) jumps_(NNS) over_(IN) the_(DT) lazy_(NN) dog_(NN) ._(.)'
+```
 
 
 ### Stemming and Lemmas
@@ -280,6 +314,15 @@ trigram_finder.apply_freq_filter(5)
 
 
 ### Lexicons
+
+
+
+
+
+
+
+
+
 
 
 
