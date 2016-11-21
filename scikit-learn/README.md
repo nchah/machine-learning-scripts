@@ -98,25 +98,113 @@ jaccard = len(intersection)/len(union)
 
 ### Vectorizing
 
-This was covered in the above sections. To repeat:
+This was covered in the above sections. To repeat the core steps:
 ```
 from sklearn.feature_extraction.text import CountVectorizer
 
 vectorizer = CountVectorizer()
 
-doc1 = "Pack my box with five dozen liquor jugs. Jackdaws love my big sphinx of quartz. The five boxing wizards jump quickly."
-doc2 = "The quick brown fox jumps over the lazy dog. How vexingly quick daft zebras jump. Bright vixens jump; dozy fowl quack."
-
-corpus = [doc1, doc2]
-
-X = vectorizer.fit_transform(corpus)
+x = vectorizer.fit_transform(corpus)
 ```
 
 ### Creating Training & Test Samples
 
+The data needs to be divided into different sets for training the machine learning model, and then testing the model's accuracy.
+```
+# Assume the following variables where each item's index match across variable:
+# text = a list of text values
+# labels = a list of labels corresponding to each item in text
+
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.cross_validation import train_test_split
+
+vectorizer = CountVectorizer(stop_words='english')  # Option for stopwords
+x = vectorizer.fit_transform(text)
+
+# Create the training, test samples with test_size 30%
+# Remember "x" is the vectorized "text" variable
+x_train, x_test, y_train, y_test = train_test_split(x, labels, test_size=0.3)
+
+# Check the sample sizes to verify
+print len(y_train), len(y_test)
+```
 
 ### Fitting and Evaluating Models
 
+Logistic Regression and Naive Bayes models will be shown here.
+```
+from sklearn.linear_model import LogisticRegression
+
+lr = LogisticRegression()
+
+lr.fit(x_train, y_train)
+
+# Evaluating the model that has now been fit
+from sklearn import metrics
+
+y_hat = lr.predict(x_test)
+confusion_matrix = metrics.confusion_matrix(y_test, y_hat)
+accuracy = metrics.accuracy_score(y_test, y_hat)
+
+print confusion_matrix
+print accuracy
+```
+
+This is the Multinomial Naive Bayes model. Same process can be done for the Bernoulii Naive Bayes classifier.
+```
+from sklearn.naive_bayes import MultinomialNB, BernoulliNB
+
+nb = MultinomialNB()
+nb.fit(x_train, y_train)
+
+y_hat = nb.predict(x_test)
+confusion_matrix = metrics.confusion_matrix(y_test, y_hat)
+accuracy = metrics.accuracy_score(y_test, y_hat)
+
+print confusion_matrix
+print accuracy
+```
+
+With the Bernoulli Naive Bayes, the threshold for how many times a term occurs in a document can be set, as well as a minimum document frequency, and an upper limit on number of features.
+```
+vectorizer = CountVectorizer(stop_words='english', min_df=10, max_features=1000)
+x = vectorizer.fit_transform(text)
+x_train, x_test, y_train, y_test = train_test_split(x, labels, random_state=0)
+
+nb = BernoulliNB(binarize=2)  # A term must occur at least 2 times in a document
+nb.fit(x_train, y_train)
+
+y_hat = nb.predict(x_test)
+
+print metrics.accuracy_score(y_test, y_hat)
+```
+
+In addition to the accuracy measure, it's good to check the most significant features according to the model.
+```
+# Get how the feature classes are ordered in the model, if not known
+print nb.classes_
+
+prob_class1 = nb.feature_log_prob_[0,:].tolist()
+prob_class2 = nb.feature_log_prob_[1,:].tolist()
+# etc...
+
+terms = vectorizer.get_feature_names()
+
+import math
+from __future__ import division
+
+# Further complex functions from class notes, TODO: re-write
+probs = [(terms[i], math.exp(prob_class1[i]), math.exp(prob_class2[i]),
+          math.exp(prob_class1[i])/math.exp(prob_class2[i]),
+          math.exp(prob_class2[i])/math.exp(prob_class1[i]))
+          for i,_ in enumerate(prob_class1)]
+
+most_important_features_1 = sorted(probs, key=lambda tup: tup[3], reverse=True)[0:10]
+# etc...
+
+for t,_,_,fratio,_ in most_important_features_1:
+    print '%-20s%-0.3f' %(t, fratio)
+```
 
 #### Cross-validation and Accuracy
 
@@ -127,6 +215,7 @@ X = vectorizer.fit_transform(corpus)
 
 ### Naive Bayes Classifier
 
+Naives Bayes models (Multinomial, Bernoulli) were covered earlier.
 
 ### K-Nearest Neighbor (K-NN Classifier)
 
