@@ -208,8 +208,61 @@ for t,_,_,fratio,_ in most_important_features_1:
 
 #### Cross-validation and Accuracy
 
+This section covers the K-folds and Stratified Shuffle Split cross-validation measures.
 
+Accuracy and F1 scores can also be calculated.
 
+```
+# Usual boilerplate for setting up the model
+vectorizer = CountVectorizer(stop_words='english', min_df=10, max_features=1000)
+x = vectorizer.fit_transform(text)
+nb = MultinomialNB()
+```
+
+K-folds method:
+```
+from sklearn.cross_validation import KFold,StratifiedShuffleSplit
+import numpy as np
+
+k10 = KFold(x.shape[0], 10, random_state=0)
+# convert classes into an array of integers.
+z, y = np.unique(y, return_inverse=True)
+
+acc = []
+f1 = []
+for k, (train, test) in enumerate(k10):
+    Mnb.fit(x[train], y[train])
+    yhat = Mnb.predict(x[test])
+    t_acc = metrics.accuracy_score(y[test],yhat)
+    t_f1 = metrics.f1_score(y[test],yhat)
+    acc.append(t_acc)
+    f1.append(t_f1)
+
+print "The percent correctly predicted is %0.2f%%" % (float(np.mean(acc))*100)
+print "The F1 score is %0.3f." % float(np.mean(f1))
+```
+
+Stratified Shuffle Split:
+```
+from sklearn.cross_validation import StratifiedShuffleSplit
+
+ssp = StratifiedShuffleSplit(y, 10, test_size=0.3, random_state=0)
+
+acc = []
+f1 = []
+for train_index, test_index in ssp:
+    x_train, x_test = x[train_index], x[test_index]
+    y_train, y_test = y[train_index], y[test_index]
+    Mnb.fit(x_train,y_train)
+    yhat = Mnb.predict(x_test)
+    t_acc = metrics.accuracy_score(y_test,yhat)
+    t_f1 = metrics.f1_score(y_test,yhat)
+    acc.append(t_acc)
+    f1.append(t_f1)  
+
+print "The percent correctly predicted is %0.2f%%" % (float(np.mean(acc))*100)
+print "The F1 score is %0.3f." % float(np.mean(f1))
+```
 
 ## Further Machine Learning Models
 
