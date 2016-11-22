@@ -307,16 +307,108 @@ print " ".join([word + '_(' + tag + ')' for word, tag in pos])
 
 ### Stemming and Lemmas
 
+NLTK also comes with a number of different stemmers.
+Each one has its own distinct behavior and can produce different stems.
+
+Porter Stemmer:
+```
+from nltk.stem.porter import PorterStemmer
+
+stemmer = PorterStemmer()
+
+text = "The five boxing wizards jump quickly."
+text = word_tokenize(text)
+
+stems = [stemmer.stem(word) for word in text]
+print stems
+# -> [u'The', u'five', u'box', u'wizard', u'jump', u'quickli', u'.']
+```
+
+Snowball Stemmer:
+```
+from nltk.stem.snowball import SnowballStemmer
+
+stemmer = SnowballStemmer('english')  # can add ignore_stopwords=True
+
+stems = [stemmer.stem(word) for word in text]
+print stems
+# -> [u'the', u'five', u'box', u'wizard', u'jump', u'quick', '.']
+```
+
+Lancaster Stemmer:
+```
+from nltk.stem.lancaster import LancasterStemmer
+
+stemmer = LancasterStemmer()
+
+stems = [stemmer.stem(word) for word in text]
+print stems
+# -> ['the', 'fiv', 'box', 'wizard', 'jump', 'quick', '.']
+```
+
+Using a lemmatizer instead of a stemmer is another approach.
+
+```
+from nltk.stem import WordNetLemmatizer
+
+lemmatizer = WordNetLemmatizer()
+
+text = "The five boxing wizards jump quickly."
+text = word_tokenize(text)
+pos_text = nltk.pos_tag([word.lower() for word in text])
+
+lemmas = [lemmatizer.lemmatize(word) for word, tag in pos_text]
+print lemmas
+# -> ['the', 'five', 'boxing', u'wizard', 'jump', 'quickly', '.']
+```
 
 
 ### Named Entity Recognition (NER)
 
+NLTK implements named entity recognition as follows.
+```
+sentence = 'Canada and the U.S.A. are in North America.'
+sentence = word_tokenize(sentence)
+sentence = pos_tag(sentence)
 
+ner = nltk.ne_chunk(sentence, binary=True)
+print ner
+# -> 
+(S
+  (NE Canada/NNP)
+  and/CC
+  the/DT
+  U.S.A./NNP
+  are/VBP
+  in/IN
+  (NE North/NNP America/NNP)
+  ./.)
+```
+
+Applying the technique to a larger corpus.
+```
+text = 'word word word Canada. word United States. word word North America.'
+text = sent_tokenize(text)
+text = [word_tokenize(sentence) for sentence in text]
+text = [pos_tag(sentence) for sentence in text]
+
+chunked_nes = nltk.ne_chunk_sents(text, binary=True)
+
+entities = []
+for tree in chunked_nes:
+    for branch in tree:
+        if hasattr(branch, 'label') and branch.label:
+            if branch.label() == 'NE':
+                entities.append(' '.join([c[0] for c in branch]))
+print entities
+# -> ['United States', 'North America']
+```
 
 ### Lexicons
 
-
-
+In a basic implementation, lexicons can be a list of words that fall under a specific category.
+For example, a 'positive' words lexicon would be a list of words that indicate a 'positive' sentiment.
+The lexicon can then be used to find the presence of 'positive' words in a corpus.
 
 
 
