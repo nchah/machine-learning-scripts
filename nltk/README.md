@@ -198,12 +198,12 @@ text_FD['Lorem']
 # -> 1
 ```
 
-There's a further step to use the matplotlib libraries to create a visualization.
-
+There's a further step to use the matplotlib libraries to create a visualization if the library is not responsive.
 ```
 # If running on OS X and the command below doesn't bring up a GUI
 import matplotlib
 matplotlib.use('TkAgg')
+# Or follow the instructions in http://stackoverflow.com/questions/29433824/unable-to-import-matplotlib-pyplot-as-plt-in-virtualenv
 
 text_FD.plot(20, cumulative=False)
 ```
