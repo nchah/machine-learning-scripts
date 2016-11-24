@@ -17,6 +17,7 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+import codecs
 import collections
 import math
 import os
@@ -29,10 +30,10 @@ from six.moves import xrange  # pylint: disable=redefined-builtin
 import tensorflow as tf
 
 # Step 1: Download the data.
-
+'''
 url = 'http://mattmahoney.net/dc/'
 
-'''
+
 def maybe_download(filename, expected_bytes):
   """Download a file if not present, and make sure it's the right size."""
   if not os.path.exists(filename):
@@ -57,13 +58,15 @@ def read_data(filename):
 
 words = read_data(filename)
 '''
-data = open('comments.txt', 'r').read()
+with codecs.open('nyt.txt', encoding='utf8') as f:
+    data = f.read()
+# data = open('nyt.txt', 'r').read()
 words = tf.compat.as_str(data).split()
 
 print('Data size', len(words))
 
 # Step 2: Build the dictionary and replace rare words with UNK token.
-vocabulary_size = 200 # 50000
+vocabulary_size = 500 # 50000
 
 
 def build_dataset(words):
@@ -182,7 +185,7 @@ with graph.as_default():
   init = tf.initialize_all_variables()
 
 # Step 5: Begin training.
-num_steps = 10000 # 100001
+num_steps = 100001 # 100001
 
 with tf.Session(graph=graph) as session:
   # We must initialize all variables before we use them.
@@ -245,11 +248,11 @@ try:
   import matplotlib.pyplot as plt
 
   tsne = TSNE(perplexity=30, n_components=2, init='pca', n_iter=5000)
-  plot_only = 20  # 500
+  plot_only = 100  # 500
   low_dim_embs = tsne.fit_transform(final_embeddings[:plot_only, :])
   labels = [reverse_dictionary[i] for i in xrange(plot_only)]
 
-  print(len(labels))
+  print(str(labels))
   plot_with_labels(low_dim_embs, labels)
 
 except ImportError:
