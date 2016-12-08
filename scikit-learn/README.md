@@ -94,9 +94,11 @@ jaccard = len(intersection)/len(union)
 # -> 0.047619047619047616
 ```
 
-## Machine Learning Steps
+## Supervised Machine Learning 
 
-### Vectorizing
+### Common Steps
+
+#### Vectorizing
 
 This was covered in the above sections. To repeat the core steps:
 ```
@@ -107,7 +109,7 @@ vectorizer = CountVectorizer()
 x = vectorizer.fit_transform(corpus)
 ```
 
-### Creating Training & Test Samples
+#### Creating Training & Test Samples
 
 The data needs to be divided into different sets for training the machine learning model, and then testing the model's accuracy.
 ```
@@ -129,7 +131,7 @@ x_train, x_test, y_train, y_test = train_test_split(x, labels, test_size=0.3)
 print len(y_train), len(y_test)
 ```
 
-### Fitting and Evaluating Models
+#### Fitting and Evaluating Models
 
 Logistic Regression and Naive Bayes models will be shown here.
 ```
@@ -276,7 +278,81 @@ Naives Bayes models (Multinomial, Bernoulli) were covered earlier.
 ### Support Vector Machines
 
 
+
+## Unsupervised Machine Learning
+
 ### Clustering
+
+#### Flat Clustering
+
+Some steps are similar to the supervised machine learning methods.
+
+```
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+tfidf = TfidfVectorizer(stop_words='english', max_features=200)
+x = tfidf.fit_transform(corpus)
+```
+
+```
+from sklearn.cluster import KMeans, MiniBatchMeans
+
+km = KMeans(n_clusters=3)
+km.fit(x)
+
+# Getting the predicted clusters
+km.predict(x)
+# OR
+km.labels_  # with the _ underscore
+
+# The predicted data can then be inserted into a pandas DataFrame for ex:
+import pandas as pd
+
+newdata = pd.DataFrame({'classes' : km.predict(x),'text' : corpus})
+newdata.head(10)
+```
+
+Using silhouette scores to determine the quality of the resulting clusters.
+```
+from sklearn.metrics import silhouette_score
+
+silhouette_score(x, km.labels_, metric='euclidean')
+
+# Looping over various K clusters to see the best K
+for K in [2,3,4,5,6,7]:
+    km = KMeans(n_clusters=K)
+    km.fit(x)
+    print silhouette_score(x, km.labels_,metric='euclidean')
+```
+
+A simple loop to get the words in each cluster:
+```
+centroids = km.cluster_centers_.argsort()[:, ::-1]
+terms = tfidf.get_feature_names()
+for i in range(3):
+    print "Cluster %d:" % (i+1) 
+    for ind in centroids[i, :10]:
+        print ' %s' % terms[ind] 
+```
+
+#### Hierarchical Clustering
+
+
+
+
+
+### Latent Dirichlet Allocation (LDA)
+
+
+
+
+
+
+
+
+
+
+
 
 
 
