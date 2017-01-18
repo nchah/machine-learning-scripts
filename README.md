@@ -78,7 +78,7 @@ Additional Sources
 ### Scikit-learn
 
 Official Sources
-
+- [Scikit-learn](http://scikit-learn.org/)
 
 Additional Sources
 
