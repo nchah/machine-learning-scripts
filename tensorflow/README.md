@@ -65,4 +65,10 @@ step 1300, training accuracy 0.98
 
 ```
 
+## word2vec
+
+Further work with word2vec done in this repository: [nchah/word2vec4everything](https://github.com/nchah/word2vec4everything)
+
+
+
 
